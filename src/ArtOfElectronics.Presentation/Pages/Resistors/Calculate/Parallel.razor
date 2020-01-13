@@ -1,0 +1,50 @@
+﻿@page "/resistors/calculate/paralell"
+@using ArtOfElectronics.Application
+
+<h1>Parallel Resistance Calulator</h1>
+
+<form @action="CalculateParallelResistanceAndRenderResult">
+</form>
+<div id="resistor-values">
+    @for (var i = 0; i < Resistors.Count; i++)
+    {
+        int localVar = i;
+        <div class="resistor-value">
+            <input type="text" @bind="Resistors[localVar]">
+            @((MarkupString)"Ω")
+        </div>
+    }
+</div>
+<div>
+    <button @onclick="AddResistor">Add Resistor</button>
+    <button @onclick="CalculateParallelResistanceAndRenderResult">Calculate</button>
+</div>
+
+@{
+    if (Result != 0)
+    {
+        <div id="result">
+            @Result.ToString("0.000")
+            @((MarkupString)"Ω")
+        </div>
+    }
+}
+
+
+<img src="/img/parallel-resistance.svg" alt="Parallel resistance diagram" />
+
+@code {
+    private List<float> Resistors = new List<float>() { 0 };
+    private float Result;
+
+    private void AddResistor()
+    {
+        Resistors.Add(0);
+    }
+
+    private void CalculateParallelResistanceAndRenderResult()
+    {
+        Result = ResistanceCalculator.Parallel(Resistors.FindAll(x => x > 0));
+
+    }
+}

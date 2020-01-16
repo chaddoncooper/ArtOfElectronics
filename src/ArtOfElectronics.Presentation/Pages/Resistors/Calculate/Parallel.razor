@@ -10,22 +10,20 @@
     {
         int localVar = i;
         <div class="resistor-value">
-            <input type="text" @bind="Resistors[localVar]">
-            @((MarkupString)"Ω")
+            <input id="resistor-input-@i" type="text" @bind="Resistors[localVar]"> @((MarkupString)"Ω")
         </div>
     }
 </div>
-<div>
-    <button @onclick="AddResistor">Add Resistor</button>
-    <button @onclick="CalculateParallelResistanceAndRenderResult">Calculate</button>
+<div class="calcultor-buttons">
+    <button id="add" class="calcultor-buttons--add" @onclick="AddResistor">Add Resistor</button>
+    <button id="calculate" class="calcultor-buttons--calculate" @onclick="CalculateParallelResistanceAndRenderResult">Calculate</button>
 </div>
 
 @{
     if (Result != 0)
     {
         <div id="result">
-            @Result.ToString("0.000")
-            @((MarkupString)"Ω")
+            @Result.ToString("0.000") @((MarkupString)"Ω")
         </div>
     }
 }
